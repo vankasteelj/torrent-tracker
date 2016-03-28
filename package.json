@@ -1,0 +1,28 @@
+{
+    "name": "torrent-tracker",
+    "version": "0.0.8",
+    "description": "Library to query both UDP and HTTP trackers",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vankasteelj/torrent-tracker.git"
+    },
+    "keywords": [
+        "torrent",
+        "swarm",
+        "tracker",
+        "udp",
+        "http",
+        "scrape",
+        "bittorrent"
+    ],
+    "license": "GPL-3.0",
+    "dependencies": {
+        "urijs": "^1.17.0",
+        "bencode": "^0.7.0",
+        "compact2string": "^1.4.0",
+        "hat": "0.0.3",
+        "request": "^2.60.0",
+        "underscore": "^1.8.3"
+    }
+}
