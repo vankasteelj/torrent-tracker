@@ -11,7 +11,7 @@ var _ = require('underscore'),
 URI.iso8859();
 
 var ACTIONS = { CONNECT: 0, ANNOUNCE: 1, SCRAPE: 2 };
-var CONNECTION_ID = new Buffer([0x00, 0x00, 0x04, 0x17, 0x27, 0x10, 0x19, 0x80]);
+var CONNECTION_ID = Buffer.from([0x00, 0x00, 0x04, 0x17, 0x27, 0x10, 0x19, 0x80]);
 
 function Tracker(tracker) {
     EventEmitter.call(this);
@@ -196,7 +196,7 @@ Tracker.prototype.scrape = function(info_hashes, options, cb) {
 
         var requestUri = this.trackerUri.clone();
         var qs = URI.buildQuery({ 
-            info_hash: _.map(info_hashes, function(hash) { return new Buffer(hash, 'hex').toString('binary') }) 
+            info_hash: _.map(info_hashes, function(hash) { return Buffer.from(hash, 'hex').toString('binary') }) 
         }, true, false);
         requestUri.filename('scrape' + (requestUri.suffix() ? ('.' + requestUri.suffix()) : ''));
         requestUri.query(qs);
@@ -208,7 +208,7 @@ Tracker.prototype.scrape = function(info_hashes, options, cb) {
             data.files = _.object(
                 _.map(data.files, function(val, key) { 
                     return [
-                        new Buffer(key, 'binary').toString('hex'), 
+                        Buffer.from(key, 'binary').toString('hex'), 
                         { 
                             seeders: val.complete,
                             completed: val.downloaded,
@@ -225,7 +225,7 @@ Tracker.prototype.scrape = function(info_hashes, options, cb) {
 }
 
 function serializeConnectRequest(opts) {
-    var buffer = new Buffer(16);
+    var buffer = Buffer.alloc(16);
     opts.connection_id.copy(buffer); // Connection ID
     buffer.writeUInt32BE(ACTIONS.CONNECT, 8); // Action
     buffer.writeUInt32BE(opts.transaction_id, 12); // Transaction ID
@@ -233,7 +233,7 @@ function serializeConnectRequest(opts) {
 }
 
 function serializeAnnounceRequest(opts) {
-    var buffer = new Buffer(98);
+    var buffer = Buffer.alloc(98);
     opts.connection_id.copy(buffer); // Connection ID
     buffer.writeUInt32BE(ACTIONS.ANNOUNCE, 8); // Action
     buffer.writeUInt32BE(opts.transaction_id, 12); // Transaction ID
@@ -266,7 +266,7 @@ function serializeScrapeRequest(opts) {
         opts.info_hash = [ opts.info_hash ];
 
     var length = 16 + 20 * opts.info_hash.length;
-    var buffer = new Buffer(length);
+    var buffer = Buffer.alloc(length);
 
     opts.connection_id.copy(buffer); // Connection ID
     buffer.writeUInt32BE(ACTIONS.SCRAPE, 8); // Action

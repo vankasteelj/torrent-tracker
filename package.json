@@ -1,6 +1,6 @@
 {
     "name": "torrent-tracker",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Library to query both UDP and HTTP trackers",
     "main": "index.js",
     "repository": {
@@ -18,11 +18,11 @@
     ],
     "license": "GPL-3.0",
     "dependencies": {
-        "urijs": "^1.17.0",
-        "bencode": "^0.7.0",
+        "urijs": "^1.19.1",
+        "bencode": "^2.0.0",
         "compact2string": "^1.4.0",
         "hat": "0.0.3",
-        "request": "^2.60.0",
-        "underscore": "^1.8.3"
+        "request": "^2.88.0",
+        "underscore": "^1.9.1"
     }
 }
