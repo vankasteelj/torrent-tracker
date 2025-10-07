@@ -204,7 +204,18 @@ Tracker.prototype.scrape = function(info_hashes, options, cb) {
         request(requestUri.toString(), {encoding: null, timeout: options.timeout }, function(err, res, body) {
             if(err) return cb(err, null);
 
-            var data = bencode.decode(body, 'binary');
+            if(res.statusCode !== 200) {
+                return cb(new Error("Unsuccessful response code from tracker: " + res.statusCode), null);
+            }
+
+            var data;
+            try {
+                data = bencode.decode(body, 'binary');
+            } catch (error) {
+                // may happen if response happens to be an html error
+                return cb(err, null);
+            }
+            
             data.files = _.object(
                 _.map(data.files, function(val, key) { 
                     return [
