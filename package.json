@@ -1,6 +1,6 @@
 {
     "name": "torrent-tracker",
-    "version": "0.0.10",
+    "version": "0.1.1",
     "description": "Library to query both UDP and HTTP trackers",
     "main": "index.js",
     "repository": {
